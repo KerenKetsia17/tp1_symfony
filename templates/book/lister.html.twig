@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AuthorController!{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-9">
+            <h2 class="mb-5">Les ouvrages de {{ author.name }}</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nom de l'auteur</th>
+                        <th>Oeuvre</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in books %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ author.name }}</td>
+                            <td>{{ book.name }}</td>
+                            <td>
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modal-{{ book.id }}">
+                                    Modifier
+                                </button>
+                                <a href="{{ path('delete_book', {'id': book.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="modal-{{ book.id }}" tabindex="-1" aria-labelledby="exampleModalLabel-{{ book.id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel-{{ book.id }}">Modifier Livre</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Formulaire pour modifier le livre -->
+                                                <form action="{{ path('update_book', {'id': book.id}) }}" method="post">
+                                                    <div class="mb-3">
+                                                        <label for="bookName-{{ book.id }}" class="form-label">Nom du livre</label>
+                                                        <input type="text" class="form-control" id="bookName-{{ book.id }}" name="bookName" placeholder="Entrer le nom du livre" autocomplete="off" value="{{ book.name }}">
+                                                    </div>
+                                                    <!-- Autres champs du formulaire pour le livre -->
+                                                    <div class="d-flex justify-content-between">
+                                                        <button type="submit" class="btn btn-primary" name="modifierLivre" value="submit">Modifier Livre</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">Aucun livre trouvé</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a class="btn btn-success text-center" href="{{ path('list_author') }}">Retour à l'accueil</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+ {% extends 'base.html.twig' %}
+
+{% block title %}Hello AuthorController!{% endblock %}
+
+{% block body %}
+
+
+  
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-9">
+            <h2 class="mb-5">Liste des auteurs </h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Actions</th>
+                        <th>Oeuvres</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for author in authors %}
+                        <tr>
+                            <td>{{ author.id }}</td>
+                            <td>{{ author.name }}</td>
+                            <td>
+                                 <a href="{{ path('delete_author', {'id': author.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Voulez-vous vraiment supprimer cet auteur et tous ses livres ?');">Supprimer</a>
+                            </td>
+                            </td>
+                            <td>
+                                <a  class="btn btn-primary text-center" href="{{ path('list_book', {'id':author.id})}}">Voir les livres</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">Aucun auteur trouvé</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+                <div>
+                    <a href="{{ path('add_author') }}" class="btn btn-success btn-sm">Ajouter un auteur</a>
+                    <a href="{{ path('add_book') }}" class="btn btn-warning btn-sm">Ajouter un livre</a>
+                </div>
+                
+
+        </div>
+    </div>
+</div>
+
+  
+
+
+
+
+{% endblock %}

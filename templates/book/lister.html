@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+</head>
+<body>
+    
+     
+    <div class="container mt-5">
+         <div class="row">
+             <div class="col-md-8">
+                 <h2 class="mb-9">Liste des auteurs</h2>
+                 <table class="table table-striped">
+                     <thead>
+                         <tr>
+                             <th>ID</th>
+                             <th>Nom</th>
+                             <th>Actions</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         {% for a in authors %}
+                             <tr>
+                                 <td>{{ a.id }}</td>
+                                 <td>{{ a.name }}</td>
+                                 <td>
+                                    <a href="{{ path('update_author', {'id': author.id}) }}" class="btn btn-warning btn-sm">Modiier</a>
+                                     <a href="{{ path('delete_author', {'id': a.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                                 </td>
+                             </tr>
+                         {% else %}
+                             <tr>
+                                 <td colspan="3">Aucun auteur trouvé</td>
+                             </tr>
+                         {% endfor %}
+                     </tbody>
+                 </table>
+             </div>
+         </div>
+     </div>
+
+     
+</body>
+</html>
+
